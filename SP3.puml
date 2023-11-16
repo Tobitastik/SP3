@@ -1,0 +1,89 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Class Menu
+Menu : Login()
+Menu : CreateNewAccount()
+
+Class User
+User : + Saved()
+User : + Logout()
+User : + Watched()
+User : + SwitchAccount() (nice to have)
+User : + Setting() (nice to have)
+
+Class Media
+Media : + Play()
+Media : + Pause()
+Media : + Fastforward()
+Media : + Rewind()
+Media : + Fullscreen()
+Media : + Subtitles()
+Media : + SoundLanguage()
+Media : + SoundVolume()
+
+Interface Categories
+Categories : + FilmRating()
+Categories : + FilmDrama()
+Categories : + FilmCrime()
+Categories : + FilmBiography()
+Categories : + FilmHistory()
+Categories : + FilmAdventure()
+Categories : + FilmAge()
+Categories : + FilmSciFi()
+Categories : + FilmFilmNoir()
+Categories : + FilmWestern()
+Categories : + FilmWar()
+Categories : + FilmRomance()
+Categories : + FilmFamily()
+Categories : + FilmComedy()
+Categories : + FilmMusical()
+Categories : + FilmDocumentary()
+Categories : + FilmAction()
+Categories : + FilmThriller()
+Categories : + FilmMystery()
+Categories : + FilmHorror()
+
+Categories : + SerieRating()
+Categories : + SerieDrama()
+Categories : + SerieCrime()
+Categories : + SerieBiography()
+Categories : + SerieHistory()
+Categories : + SerieAdventure()
+Categories : + SerieAge()
+Categories : + SerieSciFi()
+Categories : + SerieFamily()
+Categories : + SerieHistory()
+Categories : + SerieTalkShow()
+Categories : + SerieWestern()
+Categories : + SerieComedy()
+Categories : + SerieAction()
+Categories : + SerieThriller()
+Categories : + SerieMystery()
+Categories : + SerieHorror()
+
+Class Film
+Film : Music()
+Film : Sport()
+
+Class Serie
+Serie : Animation()
+
+Class FileIO
+FileIO : - Scanner scanner
+FileIO : ArrayList<Film> readFilmData()
+FileIO : ArrayList<Serie> readSerieData()
+FileIO : displayMessage()
+
+
+
+Menu -> User
+Categories -> Film
+Categories -> Serie
+User -> Categories
+FileIO -> Film
+FileIO -> Serie
+Film -> Media
+Serie -> Media
+
+@enduml
