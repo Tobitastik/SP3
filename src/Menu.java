@@ -5,6 +5,7 @@ public class Menu {
     public class Main{
         public static void main(String[] args) {
 
+
             Scanner scanner = new Scanner(System.in);
             System.out.println("Tryk y for login");
             if(scanner.nextLine().equalsIgnoreCase("y")) {
