@@ -9,9 +9,16 @@ public class Main {
         String filePath2 = "data/100bedsteserier.txt";
 
         ArrayList<String[]> filmData = io.readFilmData(filePath);
-        ArrayList<String[]> serieData = io.readSerieData(filePath2);
+        //ArrayList<String[]> serieData = io.readSerieData(filePath2);
         System.out.println(Arrays.toString(filmData.get(20)));
-        System.out.println(Arrays.toString(serieData.get(2)));
+        //System.out.println(Arrays.toString(serieData.get(2)));
+
+        new Menu();
+
+        /*TextUI ui = new TextUI();
+
+        System.out.println("Test");
+        System.out.println(ui.getInput());*/
 
     }
 }

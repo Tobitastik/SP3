@@ -14,6 +14,7 @@ public class FileIO {
                 String line = scanner.nextLine();
                 String[] tempDataF = line.split(",");
                 data.add(tempDataF);
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found (Film)");
