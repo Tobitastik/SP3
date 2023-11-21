@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,15 +43,29 @@ public class FileIO {
         return dataS;
     }
 
+    public void writeUsersToFile(ArrayList<User> users, String path){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(path))){
+            for(User user : users){
+                writer.write(user.getUsername());
+                writer.newLine();
+            }
+            System.out.println("Account updated");
+
+        } catch (IOException e){
+            System.out.println("Error updating accounts");
+        }
+    }
     public ArrayList<String> readAccountData(){
         ArrayList<String> dataA = new ArrayList<>();
         File fileA = new File("data/accounts.txt");
 
-    try{
-        Scanner scanner = new Scanner(fileA);
+    try(Scanner scanner = new Scanner(fileA)){
         while(scanner.hasNextLine()){
             String s = scanner.nextLine();
-            dataA.add(s);
+            String[] tempDataA = s.split(",");
+            for(String value : tempDataA){
+                dataA.add(value.trim());
+            }
         }
     } catch (FileNotFoundException e){
         ui.getInput("File not found (accounts)");
