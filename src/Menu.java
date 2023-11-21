@@ -17,7 +17,6 @@ public class Menu {
         if (s != null) {
             switch (s.toLowerCase()) {
                 case "y":
-                    //System.out.println("Username");
                     newLogin();
                     break;
                 case "n":
@@ -42,31 +41,17 @@ public class Menu {
         io.writeUsersToFile(users, "data/accounts.txt");
     }
 
-    private void displayUsers() {
+
+    private void newLogin() {
+        displayUsers(users);
+        ui.getNumericInput("Choose your account");
+    }
+
+
+    private void displayUsers(ArrayList<User> users){
         System.out.println("Users:");
         for(User user : users){
             System.out.println(user.getUsername());
-        }
-    }
-
-    private void newLogin() {
-        int attempts = 0;
-        int maxAttempts = 3;
-        s = ui.getInput("Username");
-        if (s.equals(username)) {
-            System.out.println("Welcome " + username + ". Please write your password");
-            while (attempts < maxAttempts) {
-                s = ui.getInput("");
-                if (s.equals(password)) {
-                    System.out.println("Login is successful");
-                    break;
-                } else {
-                    System.out.println("Try again");
-                    attempts++;
-                }
-            }
-        } else {
-            System.out.println("Invalid username. Exiting login process.");
         }
     }
 

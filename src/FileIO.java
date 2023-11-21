@@ -44,32 +44,26 @@ public class FileIO {
     }
 
     public void writeUsersToFile(ArrayList<User> users, String path){
+
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(path))){
             for(User user : users){
                 writer.write(user.getUsername());
                 writer.newLine();
             }
             System.out.println("Account updated");
+            displayUsers(users);
+
 
         } catch (IOException e){
             System.out.println("Error updating accounts");
         }
     }
-    public ArrayList<String> readAccountData(){
-        ArrayList<String> dataA = new ArrayList<>();
-        File fileA = new File("data/accounts.txt");
 
-    try(Scanner scanner = new Scanner(fileA)){
-        while(scanner.hasNextLine()){
-            String s = scanner.nextLine();
-            String[] tempDataA = s.split(",");
-            for(String value : tempDataA){
-                dataA.add(value.trim());
-            }
+    public void displayUsers(ArrayList<User> users){
+        System.out.println("Users:");
+        for(User user : users){
+            System.out.println(user.getUsername());
         }
-    } catch (FileNotFoundException e){
-        ui.getInput("File not found (accounts)");
     }
-        return dataA;
-    }
+
 }
