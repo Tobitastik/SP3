@@ -43,20 +43,39 @@ public class FileIO {
         return dataS;
     }
 
-    public void writeUsersToFile(ArrayList<User> users, String path){
+    public void writeUsersToFile(ArrayList<User> users, String path) {
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(path))){
-            for(User user : users){
-                writer.write(user.getUsername());
-                writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            for (User user : users) {
+                User[] userData ={user};
             }
             System.out.println("Account updated");
-            displayUsers(users);
+            //displayUsers(ArrayList<User> users);
 
 
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error updating accounts");
         }
+    }
+
+    //Skal laves lidt om
+    /*public ArrayList<User> readUsersFromFile(String path) {
+        ArrayList<User> users = new ArrayList<>();
+
+        try (Scanner scanner = new Scanner(new File(path))) {
+            while (scanner.hasNextLine()) {
+                String userLine = scanner.nextLine();
+                String[] tempUser = userLine.split(",");
+                users.add(tempUser);
+            }
+        } catch (FileNotFoundException e){
+          System.out.println("File not found ("+path+")");
+          }
+        return users;
+    }/*
+
+    public ArrayList<User> readUsersFromFile() {
+        return readUsersFromFile("data/accounts.txt");
     }
 
     public void displayUsers(ArrayList<User> users){
@@ -64,6 +83,6 @@ public class FileIO {
         for(User user : users){
             System.out.println(user.getUsername());
         }
-    }
+    }*/
 
 }

@@ -5,10 +5,9 @@ public class TextUI {
     private Scanner scan = new Scanner(System.in);
 
     // Viser en besked og returnerer brugerens input som en streng
-    public String getInput() {
+    public String getInput(String msg) {
+        System.out.println(msg);
         return scan.nextLine();
-        //System.out.println(msg);
-        //return scan.nextLine();
     }
 
     // Viser en besked, beder om numerisk input og returnerer brugerens valg i form af et tal.

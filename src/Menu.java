@@ -11,24 +11,31 @@ public class Menu {
     private String password = "1234";
 
     public Menu() {
+        displayMenu();
+    }
 
-        s = ui.getInput("Press Y to login or N to make a new user");
+    private void displayMenu() {
+        FileIO io = new FileIO();
 
-        if (s != null) {
-            switch (s.toLowerCase()) {
-                case "y":
-                    newLogin();
-                    break;
-                case "n":
-                    //System.out.println("New user");
-                    createUser();
-                    break;
-                default:
-                    new Menu();
+        do {
+            s = ui.getInput("Press Y to login or N to make a new user");
+
+            if (s != null) {
+                switch (s.toLowerCase()) {
+                    case "y":
+                        newLogin();
+                        break;
+                    case "n":
+                        //System.out.println("New user");
+                        createUser();
+                        break;
+                    default:
+                        System.out.println("Invalid input please try again");
+                }
+            } else {
+                System.out.println("Error: need input");
             }
-        } else {
-            System.out.println("Error: need input");
-        }
+        } while(!s.toLowerCase().equals("y") && !s.toLowerCase().equals("n"));
     }
 
     private void createUser() {
@@ -43,10 +50,24 @@ public class Menu {
 
 
     private void newLogin() {
-        displayUsers(users);
-        ui.getNumericInput("Choose your account");
+        FileIO io = new FileIO();
+        ArrayList<User> usersFromFile = io.readUsersFromFile();
+        io.displayUsers(usersFromFile);
+        int choice = ui.getNumericInput("Choose your account");
+
+
+        switch(choice){
+            case 1:
+                if (!usersFromFile.isEmpty()){
+                    User selectedUser = usersFromFile.get(0);
+                    System.out.println("welcome "+selectedUser.getUsername());
+                }
+        }
     }
 
+    public ArrayList<User> getUsers() {
+        return users;
+    }
 
     private void displayUsers(ArrayList<User> users){
         System.out.println("Users:");
@@ -54,6 +75,4 @@ public class Menu {
             System.out.println(user.getUsername());
         }
     }
-
-
 }
