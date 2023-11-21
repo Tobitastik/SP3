@@ -1,17 +1,10 @@
 public class User {
     private String username;
     private String password;
-    String[][] accounts = {{"Test","1234"}};
+    String[] accounts = {"Test", "Morten", "Tobias"};
 
-    public void user(String username, String password){
+    public void user(String username){
         this.username = username;
-        this.password = password;
     }
 
-    public boolean passwordCheck(){
-        if(username.equals(accounts[0][0]) && password.equals(accounts[0][1]))
-            return true;
-        else
-            return false;
-    }
 }

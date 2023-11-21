@@ -5,9 +5,12 @@ import java.util.Scanner;
 
 public class FileIO {
 
-    public ArrayList<String[]> readFilmData(String path) {
+    TextUI ui = new TextUI();
+
+
+    public ArrayList<String[]> readFilmData() {
         ArrayList<String[]> dataF = new ArrayList<>();
-        File fileF = new File(path);
+        File fileF = new File("data/100bedstefilm.txt");
 
         try (Scanner scanner = new Scanner(fileF)) {
             while (scanner.hasNextLine()) {
@@ -17,15 +20,16 @@ public class FileIO {
 
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found (Film)");
+            ui.getInput("File not found (Film)");
+
         }
 
         return dataF;
     }
 
-    public ArrayList<String[]> readSerieData(String path) {
+    public ArrayList<String[]> readSerieData() {
         ArrayList<String[]> dataS = new ArrayList<>();
-        File fileS = new File(path);
+        File fileS = new File("data/100bedsteserier.txt");
 
         try (Scanner scanner = new Scanner(fileS)) {
             while (scanner.hasNextLine()) {
@@ -38,5 +42,21 @@ public class FileIO {
         }
 
         return dataS;
+    }
+
+    public ArrayList<String> readAccountData(){
+        ArrayList<String> dataA = new ArrayList<>();
+        File fileA = new File("data/accounts.txt");
+
+    try{
+        Scanner scanner = new Scanner(fileA);
+        while(scanner.hasNextLine()){
+            String s = scanner.nextLine();
+            dataA.add(s);
+        }
+    } catch (FileNotFoundException e){
+        ui.getInput("File not found (accounts)");
+    }
+        return dataA;
     }
 }
