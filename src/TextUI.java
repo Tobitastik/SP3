@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class TextUI {
     private Scanner scan = new Scanner(System.in);
+    //private FileIO fileIO = new FileIO();
 
     // Viser en besked og returnerer brugerens input som en streng
     public String getInput(String msg) {
@@ -27,11 +28,10 @@ public class TextUI {
         return num;
     }
 
-
     /*
     Viser en besked, lister indholdet af en liste og returnerer brugerens valg
      */
-    /*public String getChoice(ArrayList<String> options, String msg) {
+    public String getChoice(ArrayList<String> options, String msg) {
         System.out.println(msg);
         displayMenu(options);
 
@@ -44,7 +44,7 @@ public class TextUI {
         }
 
         return input;
-    }*/
+    }
 
     // Viser menuen baseret på listen af muligheder
     public void displayMenu(ArrayList<String> options) {
@@ -53,7 +53,34 @@ public class TextUI {
             System.out.println((i + 1) + ". " + options.get(i));
         }
     }
-}
+    /*
+    public void displayMessage() {
+        ArrayList<Film> films = fileIO.readFilmData();
+        ArrayList<Serie> series = fileIO.readSerieData();
+
+        System.out.println("Film:");
+
+        for (Film film : films) {
+            System.out.println("Name: " + film.getName());
+            System.out.println("Rating: " + film.getRating());
+            System.out.println("Year: " + film.getYear());
+            System.out.println("Categories: " + film.getCategories());
+            System.out.println();
+        }
+
+        System.out.println("Serier:");
+
+        for (Serie serie : series) {
+            System.out.println("Name: " + serie.getName());
+            System.out.println("Rating: " + serie.getRating());
+            System.out.println("Age: " + serie.getAge());
+            System.out.println("Categories: " + serie.getCategories());
+            System.out.println();
+        }
+    }
+}*/
+
+
 
 /* Metodekald til TextUI kan findes herunder.
 import java.util.ArrayList;
@@ -85,7 +112,6 @@ public class TestTextUI {
         textUI.displayMenu(menuOptions);
 
         System.out.println("Testene er fuldført.");
-    }
+    }*/
 }
 
- */

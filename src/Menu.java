@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    TextUI ui = new TextUI();
+    private TextUI ui = new TextUI();
     private ArrayList<User> users = new ArrayList<>();
     private String s = "";
     private String username = "Test";
@@ -35,14 +35,14 @@ public class Menu {
             } else {
                 System.out.println("Error: need input");
             }
-        } while(!s.toLowerCase().equals("y") && !s.toLowerCase().equals("n"));
+        } while (!s.toLowerCase().equals("y") && !s.toLowerCase().equals("n"));
     }
 
     private void createUser() {
         String newUsername = ui.getInput("Enter new username");
         User newUser = new User(newUsername);
         users.add(newUser);
-        System.out.println("User "+ newUser.getUsername() +" created");
+        System.out.println("User " + newUser.getUsername() + " created");
 
         FileIO io = new FileIO();
         io.writeUsersToFile(users, "data/accounts.txt");
@@ -56,23 +56,30 @@ public class Menu {
         int choice = ui.getNumericInput("Choose your account");
 
 
-        switch(choice){
+        switch (choice) {
             case 1:
-                if (!usersFromFile.isEmpty()){
-                    User selectedUser = usersFromFile.get(0);
-                    System.out.println("welcome "+selectedUser.getUsername());
+                if (!usersFromFile.isEmpty() && choice <= usersFromFile.size()) {
+                    User selectedUser = usersFromFile.get(choice - 1);
+                    System.out.println("welcome " + selectedUser.getUsername());
+                } else {
+                    System.out.println("Invalid choice, Please choose another account");
                 }
+                break;
+            default:
+                System.out.println("Invalid choice, Please choose another account");
+                break;
         }
-    }
 
-    public ArrayList<User> getUsers() {
+    /*public ArrayList<User> getUsers() {
         return users;
-    }
+    }*/
 
-    private void displayUsers(ArrayList<User> users){
-        System.out.println("Users:");
-        for(User user : users){
-            System.out.println(user.getUsername());
-        }
+
+       /* private void displayUsers (ArrayList < User > users) {
+            System.out.println("Users:");
+            for (User user : users) {
+                System.out.println(user.getUsername());
+            }
+        }*/
     }
 }

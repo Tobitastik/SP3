@@ -15,7 +15,9 @@ public class Main {
         System.out.println("accounts.size "+ io.readAccountData().size());
         System.out.println(io.readAccountData().get(2));
 */
-        new Menu();
+        FileIO io = new FileIO();
+
+        io.readFilmData();
 
 
 
