@@ -2,10 +2,17 @@ import java.util.ArrayList;
 
 public class Film {
 
-    public String name;
-    public int year;
-    public ArrayList<String> cat;
-    public double rating;
+    private String name;
+    private int year;
+    private ArrayList<String> categories;
+    private double rating;
+
+    public Film(String name, int year, ArrayList<String> catagories, double rating){
+        this.name = name;
+        this. year = year;
+        this.categories = catagories;
+        this.rating = rating;
+    }
 
     public String getName() {
         return name;
@@ -15,11 +22,23 @@ public class Film {
         return year;
     }
 
-    public ArrayList<String> getCat() {
-        return cat;
+    public ArrayList<String> getCategories() {
+        return categories;
     }
 
     public double getRating() {
         return rating;
     }
+
+    @Override
+    public String toString(){
+        return "Movie{"+
+               "Name = "+name+
+               ", Year = "+year+
+               ", Categories = " +categories+
+               ", Rating = " + rating + "}";
+
+    }
+
+
 }

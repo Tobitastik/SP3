@@ -19,18 +19,15 @@ public class FileIO {
 
                 String name = tempDataF[0];
                 int year = Integer.parseInt(tempDataF[1].trim());
-                String[] categories = tempDataF[2].split(",");
-                double rating = Double.parseDouble(tempDataF[3]);
+                String[] categories = tempDataF[2].trim().split(",");
+                String ratingString = tempDataF[3].replace(",",".");
+                double rating = Double.parseDouble(ratingString);
 
-                Film film = new Film();
-                film.name = name;
-                film.year = year;
-                film.cat = new ArrayList<>(Arrays.asList(categories));
-                film.rating = rating;
+                Film film = new Film(name, year, new ArrayList<>(Arrays.asList(categories)), rating);
+
 
                 films.add(film);
 
-                System.out.println(films.size());
 
             }
         } catch (FileNotFoundException e) {
@@ -40,23 +37,34 @@ public class FileIO {
 
         return films;
    }
-/*
+
     public ArrayList<Serie> readSerieData() {
-        ArrayList<String[]> dataS = new ArrayList<>();
+        ArrayList<Serie> series = new ArrayList<>();
         File fileS = new File("data/100bedsteserier.txt");
 
         try (Scanner scanner = new Scanner(fileS)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] tempDataS = line.split(";");
-                dataS.add(tempDataS);
+
+                String name = tempDataS[0];
+                String year = tempDataS[1].trim();
+                String[] categories = tempDataS[2].trim().split(",");
+                String ratingString = tempDataS[3].replace(",",".");
+                double rating = Double.parseDouble(ratingString);
+                String[] season = tempDataS[4].trim().split(",");
+
+                Serie serie = new Serie(name, year, new ArrayList<>(Arrays.asList(categories)), rating, new ArrayList<>(Arrays.asList(season)));
+
+                series.add(serie);
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found (Serie)");
         }
 
-        return dataS;
-    }*/
+        return series;
+    }
 
     public void writeUsersToFile(ArrayList<User> users, String path) {
 
