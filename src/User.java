@@ -1,16 +1,37 @@
+import java.util.ArrayList;
+
 public class User {
-    static String userName(){
-        return "null";
-    }
-    static String passWord(){
-        return "null";
+    private String username;
+    private ArrayList<Film> filmWatched;
+    private ArrayList<Film> filmSaved;
+    private ArrayList<Serie> serieWatched;
+    private ArrayList<Serie> serieSaved;
+
+    public User(String username){
+        this.username = username;
+        this.filmWatched = new ArrayList<>();
+        this.filmSaved = new ArrayList<>();
+        this.serieWatched = new ArrayList<>();
+        this.serieSaved = new ArrayList<>();
     }
 
-static ArrayList<String> saved(){
-        return "null";
-}
+    public String getUsername(){
+        return username;
+    }
 
-    static ArrayList<String> watched(){
-        return "null";
+    public ArrayList<Film> getFilmWatched() {
+        return filmWatched;
+    }
+
+    public ArrayList<Film> getFilmSaved() {
+        return filmSaved;
+    }
+
+    public ArrayList<Serie> getSerieWatched() {
+        return serieWatched;
+    }
+
+    public ArrayList<Serie> getSerieSaved() {
+        return serieSaved;
     }
 }

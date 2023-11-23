@@ -9,12 +9,14 @@ public class Media {
 
         int choice = textUI.getNumericInput("Vælg en mulighed:");
 
-        if (choice == 1) {
-            return "Play";
-        } else if (choice == 2) {
-            return "Save";
-        } else {
-            return "Ugyldigt valg";
+        switch (choice) {
+            case 1:
+                return "Play";
+            case 2:
+                return "Save";
+            default:
+                System.out.println("Ugyldigt valg. Vælg igen.");
+                return playFilmOrSave(); // Rekursivt kald ved ugyldigt valg
         }
     }
 
@@ -24,15 +26,16 @@ public class Media {
 
         int choice = textUI.getNumericInput("Vælg en mulighed:");
 
-        if (choice == 1) {
-            int season = textUI.getNumericInput("Vælg sæson:");
-            int episode = textUI.getNumericInput("Vælg episode:");
-
-            return "Play Serie - Sæson " + season + ", Episode " + episode;
-        } else if (choice == 2) {
-            return "Save";
-        } else {
-            return "Ugyldigt valg";
+        switch (choice) {
+            case 1:
+                int season = textUI.getNumericInput("Vælg sæson:");
+                int episode = textUI.getNumericInput("Vælg episode:");
+                return "Play Serie - Sæson " + season + ", Episode " + episode;
+            case 2:
+                return "Save";
+            default:
+                System.out.println("Ugyldigt valg. Vælg igen.");
+                return playSerieOrSave(); // Rekursivt kald ved ugyldigt valg
         }
     }
 }

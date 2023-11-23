@@ -1,0 +1,4 @@
+interface MediaInterface {
+    String display();
+
+}
