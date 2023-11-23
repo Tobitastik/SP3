@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Serie {
+public class Serie implements MediaInterface{
 
     private String name;
     private String year;
@@ -8,11 +8,14 @@ public class Serie {
     private double rating;
     private ArrayList<String> season;
 
-    public Serie(String name, String year, ArrayList<String> catagories, double rating, ArrayList<String> season){
+    private String startYear;
+    private String endYear;
+
+    public Serie(String name, String year, ArrayList<String> categories, double rating, ArrayList<String> season){
 
         this.name = name;
         this. year = year;
-        this.categories = catagories;
+        this.categories = categories;
         this.rating = rating;
         this.season = season;
 
@@ -22,9 +25,33 @@ public class Serie {
         return name;
     }
 
-    public String getYear() {
-        return year;
+    public String getStartYear() {
+        return startYear;
     }
+
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
+    }
+
+    public String getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(String endYear) {
+        this.endYear = endYear;
+    }
+
+    public String getYear() {
+        if(startYear != null && endYear != null) {
+           return startYear + "-"+ endYear;
+        } else if(startYear != null){
+           return startYear;
+        } else{
+           return"";
+        }
+
+    }
+
 
     public ArrayList<String> getCategories() {
         return categories;
@@ -39,7 +66,7 @@ public class Serie {
     }
 
     @Override
-    public String toString(){
+    public String display(){
         return "Serie{"+
                 "Name = "+name+
                 ", Year = "+year+

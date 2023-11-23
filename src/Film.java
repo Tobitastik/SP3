@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Film {
+public class Film implements MediaInterface {
 
     private String name;
     private int year;
@@ -31,7 +31,7 @@ public class Film {
     }
 
     @Override
-    public String toString(){
+    public String display(){
         return "Movie{"+
                "Name = "+name+
                ", Year = "+year+
@@ -39,6 +39,4 @@ public class Film {
                ", Rating = " + rating + "}";
 
     }
-
-
 }

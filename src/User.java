@@ -2,24 +2,36 @@ import java.util.ArrayList;
 
 public class User {
     private String username;
-    private ArrayList<String> watched;
-    private ArrayList<String> saved;
+    private ArrayList<Film> filmWatched;
+    private ArrayList<Film> filmSaved;
+    private ArrayList<Serie> serieWatched;
+    private ArrayList<Serie> serieSaved;
 
     public User(String username){
         this.username = username;
-        this.watched = new ArrayList<>();
-        this.saved = new ArrayList<>();
+        this.filmWatched = new ArrayList<>();
+        this.filmSaved = new ArrayList<>();
+        this.serieWatched = new ArrayList<>();
+        this.serieSaved = new ArrayList<>();
     }
 
     public String getUsername(){
         return username;
     }
 
-    public ArrayList<String> getSaved() {
-        return saved;
+    public ArrayList<Film> getFilmWatched() {
+        return filmWatched;
     }
 
-    public ArrayList<String> getWatched() {
-        return watched;
+    public ArrayList<Film> getFilmSaved() {
+        return filmSaved;
+    }
+
+    public ArrayList<Serie> getSerieWatched() {
+        return serieWatched;
+    }
+
+    public ArrayList<Serie> getSerieSaved() {
+        return serieSaved;
     }
 }

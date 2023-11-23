@@ -3,12 +3,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
-
     private TextUI ui = new TextUI();
     private ArrayList<User> users = new ArrayList<>();
     private String s = "";
     private String username = "Test";
     private String password = "1234";
+
 
     public Menu() {
         displayMenu();
@@ -23,10 +23,10 @@ public class Menu {
             if (s != null) {
                 switch (s.toLowerCase()) {
                     case "y":
-                        newLogin();
+                        //newLogin();
                         break;
                     case "n":
-                        //System.out.println("New user");
+
                         createUser();
                         break;
                     default:
@@ -48,7 +48,7 @@ public class Menu {
         io.writeUsersToFile(users, "data/accounts.txt");
     }
 
-
+/*
     private void newLogin() {
         FileIO io = new FileIO();
         ArrayList<User> usersFromFile = io.readUsersFromFile();
@@ -69,7 +69,7 @@ public class Menu {
                 System.out.println("Invalid choice, Please choose another account");
                 break;
         }
-
+*/
     /*public ArrayList<User> getUsers() {
         return users;
     }*/
@@ -80,6 +80,6 @@ public class Menu {
             for (User user : users) {
                 System.out.println(user.getUsername());
             }
-        }*/
-    }
+        }
+    }*/
 }
