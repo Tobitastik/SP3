@@ -15,11 +15,20 @@ public class Main {
         System.out.println("accounts.size "+ io.readAccountData().size());
         System.out.println(io.readAccountData().get(2));
 */
+       // FileIO io = new FileIO();
+
+        //io.readFilmData();
+        //new Menu();
+        TextUI ui = new TextUI();
         FileIO io = new FileIO();
+        ArrayList<Serie> series = io.readSerieData();
+        ArrayList<Film> films = io.readFilmData();
 
-        io.readFilmData();
+        UserMenu userMenu = new UserMenu(ui, films, series);
+        userMenu.chooseMenu(ui, films, series);
+        //userMenu.searchForSerieName();
 
-
+       //new Test();
 
    // User user = new User("Morten");
   //  ArrayList<String> watchedList = user.getWatched();

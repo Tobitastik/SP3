@@ -34,4 +34,12 @@ public class User {
     public ArrayList<Serie> getSerieSaved() {
         return serieSaved;
     }
+
+    public void addToSavedSerie(Serie serie){
+        serieSaved.add(serie);
+    }
+
+    public void addToWatchedSerie(Serie serie){
+        serieWatched.add(serie);
+    }
 }

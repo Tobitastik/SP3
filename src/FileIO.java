@@ -52,9 +52,24 @@ public class FileIO {
                 String[] categories = tempDataS[2].trim().split(",");
                 String ratingString = tempDataS[3].replace(",",".");
                 double rating = Double.parseDouble(ratingString);
-                String[] season = tempDataS[4].trim().split(",");
+                String[] seasonsData = tempDataS[4].trim().split(",");
 
-                Serie serie = new Serie(name, yearString, new ArrayList<>(Arrays.asList(categories)), rating, new ArrayList<>(Arrays.asList(season)));
+                ArrayList<Season> seasons = new ArrayList<>();
+
+                for (String seasonInfo : seasonsData) {
+                    String[] seasonParts = seasonInfo.split("-");
+                    String seasonNumber = seasonParts[0].replace("Season", "").trim();
+                    String[] episodeParts = seasonParts[1].split("Episode");
+
+                    ArrayList<Integer> episodes = new ArrayList<>();
+                    for (String episode : episodeParts) {
+                        episodes.add(Integer.parseInt(episode.trim()));
+                    }
+
+                    seasons.add(new Season(seasonNumber, episodes));
+                }
+
+                Serie serie = new Serie(name, yearString, new ArrayList<>(Arrays.asList(categories)), rating, seasons);
                 setStartAndEndYear(serie, yearString);
 
                 series.add(serie);
@@ -127,7 +142,7 @@ public class FileIO {
     }
 
     //Skal laves lidt om
- /*   public ArrayList<User> readUsersFromFile(String path) {
+  /*  public ArrayList<User> readUsersFromFile(String path) {
         ArrayList<User> users = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new File(path))) {
@@ -199,13 +214,13 @@ public class FileIO {
 
     public ArrayList<User> readUsersFromFile() {
         return readUsersFromFile("data/accounts.txt");
-    }*/
+    }
 
     public void displayUsers(ArrayList<User> users){
         System.out.println("Users:");
         for(User user : users){
             System.out.println(user.getUsername());
         }
-    }
+    }*/
 
 }

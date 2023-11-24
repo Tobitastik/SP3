@@ -2,35 +2,67 @@ import java.util.ArrayList;
 
 public class UserMenu {
     private TextUI ui;
+    private Media media;
     private ArrayList<Serie> series;
     private ArrayList<Film> films;
 
     public UserMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series) {
         this.ui = ui;
         this.series = series;
+        this.media = new Media(ui);
     }
 
     public void chooseMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series) {
         int choice;
-        do {
-            displayMenu();
-            choice = ui.getNumericInput("Chose your search method");
-            switch (choice) {
-                case 1:
-                    searchForSerieName();
-                    break;
-                case 2:
-                    searchForSerieYear();
-                    break;
-                case 0:
-                    System.out.println("Exiting menu");
-                    break;
-                default:
-                    System.out.println("Invalid choice, try again please");
-                    break;
-            }
-        } while (choice != 0);
+
+        displayMenu();
+        choice = ui.getNumericInput("Chose your search method");
+        switch (choice) {
+            case 1:
+                searchForSerieName();
+                break;
+            case 2:
+                searchForSerieYear();
+                break;
+            case 3:
+                searchForCategories();
+                break;
+            case 4:
+                searchForRating();
+                break;
+            case 5:
+                searchForSeason();
+                break;
+            case 0:
+                System.out.println("Exiting menu");
+                break;
+            default:
+                System.out.println("Invalid choice, try again please");
+                break;
+        }
     }
+
+    private void searchForSeason() {
+        System.out.println("searchForSeason(); is empty for now");
+    }
+
+    private void searchForRating() {
+        double searchRating = ui.getDoubleInput("Enter rating search:");
+        ArrayList<Serie> searchResults = new ArrayList<>();
+
+        for (Serie serie : series) {
+            if (serie.getRating() == searchRating) {
+                searchResults.add(serie);
+            }
+        }
+
+        displaySearchResults(searchResults);
+    }
+
+    private void searchForCategories() {
+        System.out.println("searchForCategories is empty for now");
+    }
+
     private void displayMenu(){
         System.out.println("1. Search by name");
         System.out.println("2. Search by year");
@@ -48,6 +80,19 @@ public class UserMenu {
             }
         }
         displaySearchResults(searchResults);
+
+        if(!searchResults.isEmpty()) {
+            int selectedSerieIndex = ui.getNumericInput("Chose serie based on the number");
+
+            if (selectedSerieIndex >= 1 && selectedSerieIndex <= searchResults.size()) {
+                Serie selectedSerie = searchResults.get(selectedSerieIndex - 1);
+                System.out.println(selectedSerie.getName());
+                media.playSerieOrSave();
+
+            } else {
+                System.out.println("Please enter valid number");
+            }
+        }
     }
 
     private void searchForSerieYear() {
@@ -77,19 +122,34 @@ public class UserMenu {
         }
 
         displaySearchResults(searchResults);
+
+        if(!searchResults.isEmpty()) {
+            int selectedSerieIndex = ui.getNumericInput("Chose serie based on the number");
+
+            if (selectedSerieIndex >= 1 && selectedSerieIndex <= searchResults.size()) {
+                Serie selectedSerie = searchResults.get(selectedSerieIndex - 1);
+                System.out.println(selectedSerie.getName());
+                media.playSerieOrSave();
+
+            } else {
+                System.out.println("Please enter valid number");
+            }
+        }
     }
 
-
-
     private void displaySearchResults(ArrayList<? extends MediaInterface> searchResults){
+        int index = 0;
         if(searchResults.isEmpty()){
             System.out.println("No media match found");
         } else {
             System.out.println("Search results:");
                 for(MediaInterface media : searchResults){
+                    System.out.println(index+1);
                     System.out.println(media.display());
+                    index++;
+                    System.out.println();
                 }
             }
-    }
+   }
 
 }

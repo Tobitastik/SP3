@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class Media {
     private TextUI textUI = new TextUI();
 
+    public Media(TextUI textUI){
+        this.textUI = textUI;
+    }
     public String playFilmOrSave() {
         System.out.println("1. Play");
         System.out.println("2. Save");
@@ -18,7 +21,7 @@ public class Media {
         }
     }
 
-    public String playSerieOrSave() {
+    public void playSerieOrSave() {
         System.out.println("1. Play");
         System.out.println("2. Save");
 
@@ -28,11 +31,11 @@ public class Media {
             int season = textUI.getNumericInput("Vælg sæson:");
             int episode = textUI.getNumericInput("Vælg episode:");
 
-            return "Play Serie - Sæson " + season + ", Episode " + episode;
+            System.out.println("Play Serie - Sæson " + season + ", Episode " + episode);
         } else if (choice == 2) {
-            return "Save";
+            System.out.println("Save");
         } else {
-            return "Ugyldigt valg";
+            System.out.println("Ugyldigt valg");
         }
     }
 }

@@ -28,6 +28,22 @@ public class TextUI {
         return num;
     }
 
+    public int getDoubleInput(String msg) {
+        System.out.println(msg);
+
+        String input = scan.nextLine();
+        int num;
+
+        try {
+            num = (int) Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Dette var ikke et tal. " + e.getMessage());
+            num = getDoubleInput(msg);
+        }
+
+        return num;
+    }
+
     /*
     Viser en besked, lister indholdet af en liste og returnerer brugerens valg
      */
