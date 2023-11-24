@@ -1,9 +1,6 @@
 
 import java.util.ArrayList;
 
-import static java.awt.SystemColor.menu;
-
-
 public class Menu {
     private TextUI ui = new TextUI();
     private ArrayList<User> users = new ArrayList<>();
@@ -11,8 +8,6 @@ public class Menu {
     private ArrayList<Film> films;
     private ArrayList<Serie> series;
     private UserMenu userMenu;
-
-
 
     public Menu(ArrayList<Film> films, ArrayList<Serie> series) {
         this.films = films;
@@ -86,9 +81,7 @@ public class Menu {
                     User selectedUser = usersFromFile.get(choice - 1);
                     System.out.println("Welcome " + selectedUser.getUsername());
 
-
                     users.add(selectedUser);
-
 
                 } else {
                     System.out.println("Invalid choice, Please choose another account");

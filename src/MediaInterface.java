@@ -1,4 +1,3 @@
 interface MediaInterface {
     String display();
-
 }

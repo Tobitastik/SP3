@@ -7,7 +7,6 @@ public class FileIO {
 
     TextUI ui = new TextUI();
 
-
     public ArrayList<Film> readFilmData() {
         ArrayList<Film> films = new ArrayList<>();
         File fileF = new File("data/100bedstefilm.txt");
@@ -105,6 +104,7 @@ public class FileIO {
                 writer.write(user.getUsername());
                 writer.write(";");
 
+                writer.write("Watched: ");
 
                 writer.write("Watched Movies:");
                 for (Film film : user.getFilmWatched()) {
@@ -134,8 +134,6 @@ public class FileIO {
             }
 
             System.out.println("Account updated");
-            //displayUsers(ArrayList<User> users);
-
 
         } catch (IOException e) {
             System.out.println("Error updating accounts");
@@ -154,8 +152,8 @@ public class FileIO {
         return readUsersFromFile("data/accounts.txt");
     }
 
-    //Skal laves lidt om
 
+    //readUsersFromFile virker ikke som den skal
     public ArrayList<User> readUsersFromFile(String path) {
         ArrayList<User> users = new ArrayList<>();
 
@@ -168,7 +166,7 @@ public class FileIO {
                 if (tempUser.length >= 2) {
                     String username = tempUser[0];
 
-                    // Extract watched movies
+
                     String watchedMoviesSection = tempUser[1].substring("Watched Movies:".length());
                     String[] watchedMoviesData = watchedMoviesSection.split(",");
                     ArrayList<Film> watchedMovies = new ArrayList<>();
@@ -179,9 +177,7 @@ public class FileIO {
                         }
                     }
 
-
                     User newUser = new User(username);
-                    newUser.getFilmWatched().addAll(watchedMovies);
 
                     users.add(newUser);
                 } else {
@@ -195,6 +191,7 @@ public class FileIO {
 
         return users;
     }
+
     public void displayUsers(ArrayList<User> users){
         System.out.println("Users:");
         for(User user : users){

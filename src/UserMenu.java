@@ -6,6 +6,7 @@ public class UserMenu {
     private ArrayList<Serie> series;
     private ArrayList<Film> films;
     private Menu menu;
+    public User user;
 
 
     public UserMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series, Menu menu) {
@@ -15,8 +16,6 @@ public class UserMenu {
         this.media = new Media(ui);
         this.menu = menu;
     }
-
-
 
 
     public void chooseMenu() {
@@ -49,26 +48,7 @@ public class UserMenu {
         }
     }
 
-    private void searchForSeason() {
-        System.out.println("searchForSeason(); is empty for now");
-    }
 
-    private void searchForRating() {
-        double searchRating = ui.getDoubleInput("Enter rating search:");
-        ArrayList<Serie> searchResults = new ArrayList<>();
-
-        for (Serie serie : series) {
-            if (serie.getRating() == searchRating) {
-                searchResults.add(serie);
-            }
-        }
-
-        displaySearchResults(searchResults);
-    }
-
-    private void searchForCategories() {
-        System.out.println("searchForCategories is empty for now");
-    }
 
     private void displayMenu(){
         System.out.println("1. Search by name");
@@ -118,7 +98,7 @@ public class UserMenu {
                         searchResults.add(serie);
                     }
                 } else {
-                    // adding if no end year
+
                     searchResults.add(serie);
                 }
             } else {
@@ -140,6 +120,92 @@ public class UserMenu {
 
             } else {
                 System.out.println("Please enter valid number");
+            }
+        }
+    }
+    private void searchForCategories() {
+        String searchCategory = ui.getInput("Enter category search:");
+        ArrayList<Serie> searchResults = new ArrayList<>();
+
+        for (Serie serie : series) {
+            for (String category : serie.getCategories()) {
+                if (category.toLowerCase().contains(searchCategory.toLowerCase())) {
+                    searchResults.add(serie);
+                    break;
+                }
+            }
+        }
+
+        displaySearchResults(searchResults);
+
+        if (!searchResults.isEmpty()) {
+            int selectedSerieIndex = ui.getNumericInput("Choose serie based on the number");
+
+            if (selectedSerieIndex >= 1 && selectedSerieIndex <= searchResults.size()) {
+                Serie selectedSerie = searchResults.get(selectedSerieIndex - 1);
+                System.out.println(selectedSerie.getName());
+                media.playSerieOrSave();
+            } else {
+                System.out.println("Please enter a valid number");
+            }
+        }
+    }
+    private void searchForRating() {
+        double searchRating = ui.getDoubleInput("Enter minimum rating:");
+
+        ArrayList<Serie> searchResults = new ArrayList<>();
+
+        for (Serie serie : series) {
+            if (serie.getRating() >= searchRating) {
+                searchResults.add(serie);
+            }
+        }
+
+        displaySearchResults(searchResults);
+
+        if (!searchResults.isEmpty()) {
+            int selectedSerieIndex = ui.getNumericInput("Choose serie based on the number");
+
+            if (selectedSerieIndex >= 1 && selectedSerieIndex <= searchResults.size()) {
+                Serie selectedSerie = searchResults.get(selectedSerieIndex - 1);
+                System.out.println(selectedSerie.getName());
+                media.playSerieOrSave();
+            } else {
+                System.out.println("Please enter a valid number");
+            }
+        }
+    }
+    private void searchForSeason() {
+        int searchSeason = ui.getNumericInput("Enter season search:");
+        ArrayList<Serie> searchResults = new ArrayList<>();
+
+        for (Serie serie : series) {
+            for (Season season : serie.getSeason()) {
+                int seasonNumber;
+                try {
+                    seasonNumber = Integer.parseInt(season.getNumberOfSeasons());
+                } catch (NumberFormatException e) {
+                    continue;
+                }
+
+                if (seasonNumber == searchSeason) {
+                    searchResults.add(serie);
+                    break;
+                }
+            }
+        }
+
+        displaySearchResults(searchResults);
+
+        if (!searchResults.isEmpty()) {
+            int selectedSerieIndex = ui.getNumericInput("Choose serie based on the number");
+
+            if (selectedSerieIndex >= 1 && selectedSerieIndex <= searchResults.size()) {
+                Serie selectedSerie = searchResults.get(selectedSerieIndex - 1);
+                System.out.println(selectedSerie.getName());
+                media.playSerieOrSave();
+            } else {
+                System.out.println("Please enter a valid number");
             }
         }
     }

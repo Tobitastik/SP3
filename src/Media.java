@@ -40,10 +40,14 @@ public class Media {
             Season watchedSeason = new Season(Integer.toString(season), new ArrayList<>(Arrays.asList(episode)));
             watchedSerie.getSeason().add(watchedSeason);
 
-            if (user != null) {
-                user.getSerieWatched().add(watchedSerie);
+            System.out.println("Debug: User information - " + user);
 
-                // Save the updated user data to a file
+            if (user != null) {
+
+                String serieName = watchedSerie.getName();
+
+
+
                 FileIO io = new FileIO();
                 io.writeUsersToFile(new ArrayList<>(Arrays.asList(user)), "data/accounts.txt");
             } else {
@@ -57,6 +61,8 @@ public class Media {
         }
     }
 
+
+    //gemmes i tilfælde af den anden ikke virker spoiler it doesn't
    /* public void playSerieOrSave() {
         System.out.println("1. Play");
         System.out.println("2. Save");
