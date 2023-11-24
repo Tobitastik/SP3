@@ -113,6 +113,4 @@ public class Serie implements MediaInterface{
                 ", Season = " + seasonString.toString() + "}";
     }
 
-
-
 }

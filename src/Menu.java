@@ -1,20 +1,35 @@
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+
+import static java.awt.SystemColor.menu;
+
 
 public class Menu {
     private TextUI ui = new TextUI();
     private ArrayList<User> users = new ArrayList<>();
     private String s = "";
-    private String username = "Test";
-    private String password = "1234";
+    private ArrayList<Film> films;
+    private ArrayList<Serie> series;
+    private UserMenu userMenu;
 
 
-    public Menu() {
+
+    public Menu(ArrayList<Film> films, ArrayList<Serie> series) {
+        this.films = films;
+        this.series = series;
+        loadUsersFromFile();
         displayMenu();
+        userMenu = new UserMenu(ui, films, series, this);
+        userMenu.chooseMenu();
+
     }
 
-    private void displayMenu() {
+    private void loadUsersFromFile(){
+        FileIO io = new FileIO();
+        users = io.readUsersFromFile();
+    }
+
+    public void displayMenu() {
         FileIO io = new FileIO();
 
         do {
@@ -23,7 +38,7 @@ public class Menu {
             if (s != null) {
                 switch (s.toLowerCase()) {
                     case "y":
-                        //newLogin();
+                        newLogin();
                         break;
                     case "n":
 
@@ -36,6 +51,7 @@ public class Menu {
                 System.out.println("Error: need input");
             }
         } while (!s.toLowerCase().equals("y") && !s.toLowerCase().equals("n"));
+
     }
 
     private void createUser() {
@@ -48,19 +64,32 @@ public class Menu {
         io.writeUsersToFile(users, "data/accounts.txt");
     }
 
-/*
+
     private void newLogin() {
+
         FileIO io = new FileIO();
         ArrayList<User> usersFromFile = io.readUsersFromFile();
-        io.displayUsers(usersFromFile);
-        int choice = ui.getNumericInput("Choose your account");
 
+        if (usersFromFile.isEmpty()) {
+            System.out.println("No users found. Please create a new user.");
+            createUser();
+            return;
+        }
+
+        io.displayUsers(usersFromFile);
+
+        int choice = ui.getNumericInput("Choose your account");
 
         switch (choice) {
             case 1:
-                if (!usersFromFile.isEmpty() && choice <= usersFromFile.size()) {
+                if (choice <= usersFromFile.size()) {
                     User selectedUser = usersFromFile.get(choice - 1);
-                    System.out.println("welcome " + selectedUser.getUsername());
+                    System.out.println("Welcome " + selectedUser.getUsername());
+
+
+                    users.add(selectedUser);
+
+
                 } else {
                     System.out.println("Invalid choice, Please choose another account");
                 }
@@ -69,17 +98,10 @@ public class Menu {
                 System.out.println("Invalid choice, Please choose another account");
                 break;
         }
-*/
-    /*public ArrayList<User> getUsers() {
+    }
+
+    public ArrayList<User> getUsers() {
         return users;
-    }*/
+    }
 
-
-       /* private void displayUsers (ArrayList < User > users) {
-            System.out.println("Users:");
-            for (User user : users) {
-                System.out.println(user.getUsername());
-            }
-        }
-    }*/
 }

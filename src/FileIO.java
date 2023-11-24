@@ -8,7 +8,7 @@ public class FileIO {
     TextUI ui = new TextUI();
 
 
-   public ArrayList<Film> readFilmData() {
+    public ArrayList<Film> readFilmData() {
         ArrayList<Film> films = new ArrayList<>();
         File fileF = new File("data/100bedstefilm.txt");
 
@@ -20,7 +20,7 @@ public class FileIO {
                 String name = tempDataF[0];
                 int year = Integer.parseInt(tempDataF[1].trim());
                 String[] categories = tempDataF[2].trim().split(",");
-                String ratingString = tempDataF[3].replace(",",".");
+                String ratingString = tempDataF[3].replace(",", ".");
                 double rating = Double.parseDouble(ratingString);
 
                 Film film = new Film(name, year, new ArrayList<>(Arrays.asList(categories)), rating);
@@ -36,7 +36,7 @@ public class FileIO {
         }
 
         return films;
-   }
+    }
 
     public ArrayList<Serie> readSerieData() {
         ArrayList<Serie> series = new ArrayList<>();
@@ -50,7 +50,7 @@ public class FileIO {
                 String name = tempDataS[0];
                 String yearString = tempDataS[1].trim();
                 String[] categories = tempDataS[2].trim().split(",");
-                String ratingString = tempDataS[3].replace(",",".");
+                String ratingString = tempDataS[3].replace(",", ".");
                 double rating = Double.parseDouble(ratingString);
                 String[] seasonsData = tempDataS[4].trim().split(",");
 
@@ -107,28 +107,29 @@ public class FileIO {
 
 
                 writer.write("Watched Movies:");
-                for(Film film : user.getFilmWatched()) {
+                for (Film film : user.getFilmWatched()) {
                     writer.write(film.getName());
                     writer.write(",");
                 }
 
                 writer.write(";Saved Movies:");
-                for(Film film : user.getFilmSaved()) {
+                for (Film film : user.getFilmSaved()) {
                     writer.write(film.getName());
                     writer.write(",");
                 }
 
                 writer.write(";Watched Series");
-                for(Serie serie : user.getSerieWatched()) {
+                for (Serie serie : user.getSerieWatched()) {
                     writer.write(serie.getName());
                     writer.write(",");
                 }
 
                 writer.write(";Saved Series");
-                for(Serie serie : user.getSerieSaved()){
+                for (Serie serie : user.getSerieSaved()) {
                     writer.write(serie.getName());
                     writer.write(",");
                 }
+                writer.write(",");
                 writer.newLine();
             }
 
@@ -141,8 +142,21 @@ public class FileIO {
         }
     }
 
+    public Film createFilm(String filmName) {
+        return new Film(filmName, 2023, new ArrayList<>(), 0.0);
+    }
+
+    public Serie createSerie(String serieName) {
+        return new Serie(serieName, "Year", new ArrayList<>(), 0.0, new ArrayList<>());
+    }
+
+    public ArrayList<User> readUsersFromFile() {
+        return readUsersFromFile("data/accounts.txt");
+    }
+
     //Skal laves lidt om
-  /*  public ArrayList<User> readUsersFromFile(String path) {
+
+    public ArrayList<User> readUsersFromFile(String path) {
         ArrayList<User> users = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new File(path))) {
@@ -150,59 +164,30 @@ public class FileIO {
                 String userLine = scanner.nextLine();
                 String[] tempUser = userLine.split(";");
 
-                String username = tempUser[0];
 
-                // Extract watched movies
-                String watchedMoviesSection = tempUser[1].substring("Watched Movies:".length());
-                String[] watchedMoviesData = watchedMoviesSection.split(",");
-                ArrayList<Film> watchedMovies = new ArrayList<>();
-                for (String movieName : watchedMoviesData) {
-                    Film movie = createFilm(movieName.trim());
-                    if (movie != null) {
-                        watchedMovies.add(movie);
+                if (tempUser.length >= 2) {
+                    String username = tempUser[0];
+
+                    // Extract watched movies
+                    String watchedMoviesSection = tempUser[1].substring("Watched Movies:".length());
+                    String[] watchedMoviesData = watchedMoviesSection.split(",");
+                    ArrayList<Film> watchedMovies = new ArrayList<>();
+                    for (String movieName : watchedMoviesData) {
+                        Film movie = createFilm(movieName.trim());
+                        if (movie != null) {
+                            watchedMovies.add(movie);
+                        }
                     }
+
+
+                    User newUser = new User(username);
+                    newUser.getFilmWatched().addAll(watchedMovies);
+
+                    users.add(newUser);
+                } else {
+
+                    System.out.println("Warning: Invalid user line - " + userLine);
                 }
-
-                // Extract saved movies
-                String savedMoviesSection = tempUser[2].substring("Saved Movies:".length());
-                String[] savedMoviesData = savedMoviesSection.split(",");
-                ArrayList<Film> savedMovies = new ArrayList<>();
-                for (String movieName : savedMoviesData) {
-                    Film movie = createFilm(movieName.trim());
-                    if (movie != null) {
-                        savedMovies.add(movie);
-                    }
-                }
-
-                // Extract watched series
-                String watchedSeriesSection = tempUser[3].substring("Watched Series:".length());
-                String[] watchedSeriesData = watchedSeriesSection.split(",");
-                ArrayList<Serie> watchedSeries = new ArrayList<>();
-                for (String serieName : watchedSeriesData) {
-                    Serie serie = createSerie(serieName.trim());
-                    if (serie != null) {
-                        watchedSeries.add(serie);
-                    }
-                }
-
-                // Extract saved series
-                String savedSeriesSection = tempUser[4].substring("Saved Series:".length());
-                String[] savedSeriesData = savedSeriesSection.split(",");
-                ArrayList<Serie> savedSeries = new ArrayList<>();
-                for (String serieName : savedSeriesData) {
-                    Serie serie = createSerie(serieName.trim());
-                    if (serie != null) {
-                        savedSeries.add(serie);
-                    }
-                }
-
-                User newUser = new User(username);
-                newUser.getFilmWatched().addAll(watchedMovies);
-                newUser.getFilmSaved().addAll(savedMovies);
-                newUser.getSerieWatched().addAll(watchedSeries);
-                newUser.getSerieSaved().addAll(savedSeries);
-
-                users.add(newUser);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found (" + path + ")");
@@ -210,17 +195,11 @@ public class FileIO {
 
         return users;
     }
-
-
-    public ArrayList<User> readUsersFromFile() {
-        return readUsersFromFile("data/accounts.txt");
-    }
-
     public void displayUsers(ArrayList<User> users){
         System.out.println("Users:");
         for(User user : users){
             System.out.println(user.getUsername());
         }
-    }*/
+    }
 
 }

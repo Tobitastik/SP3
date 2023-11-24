@@ -18,14 +18,18 @@ public class Main {
        // FileIO io = new FileIO();
 
         //io.readFilmData();
-        //new Menu();
+
+
         TextUI ui = new TextUI();
         FileIO io = new FileIO();
         ArrayList<Serie> series = io.readSerieData();
         ArrayList<Film> films = io.readFilmData();
-
+        Menu menu = new Menu(films, series);
+        UserMenu userMenu = new UserMenu(ui, films, series, menu);
+        userMenu.chooseMenu();
+        /*
         UserMenu userMenu = new UserMenu(ui, films, series);
-        userMenu.chooseMenu(ui, films, series);
+        userMenu.chooseMenu(ui, films, series);*/
         //userMenu.searchForSerieName();
 
        //new Test();

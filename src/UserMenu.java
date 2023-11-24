@@ -5,14 +5,21 @@ public class UserMenu {
     private Media media;
     private ArrayList<Serie> series;
     private ArrayList<Film> films;
+    private Menu menu;
 
-    public UserMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series) {
+
+    public UserMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series, Menu menu) {
         this.ui = ui;
         this.series = series;
+        this.films = films;
         this.media = new Media(ui);
+        this.menu = menu;
     }
 
-    public void chooseMenu(TextUI ui, ArrayList<Film> films, ArrayList<Serie> series) {
+
+
+
+    public void chooseMenu() {
         int choice;
 
         displayMenu();
@@ -102,7 +109,7 @@ public class UserMenu {
         for (Serie serie : series) {
             String yearString = serie.getYear();
             if (yearString.contains("-")) {
-                String[] yearRange = yearString.split("-");
+         String[] yearRange = yearString.split("-");
                 int startYear = Integer.parseInt(yearRange[0].trim());
 
                 if (yearRange.length > 1 && !yearRange[1].trim().equals("")) {
